@@ -151,7 +151,7 @@
 				<div class="col-3 bar" v-for="(item,index) in columnss" :key="index">
 					<div style="width: 235px;margin: auto;">
 						<div style="text-align: center;width: 200px;margin: auto;margin-top: 30px;">
-							<img src="../assets/image/gt.jpeg" style="width: 80px;height: 80px;border-radius: 100px;"/>
+							<img :src="item.imageUrl" style="width: 80px;height: 80px;border-radius: 100px;"/>
 							<h4 style="margin-top: 20px;">{{item.title}}</h4>
 							<p style="font-size: 12px;color: #999999;margin-top: 5px;">{{item.followers}}关注 · {{item.articlesCount}}文章</p>
 							<div style="width: 100%;height: 40px;margin-top: 18px;">

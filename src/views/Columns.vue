@@ -31,10 +31,18 @@
 				<div class="ColumnHomeTitle-text">专栏 · 发现</div>
 				<div class="ColumnHomeTitle-line"></div>
 			</h3>
-			<div class="ColumnHomeRecommendation-cardContainer" style="border: 1px solid #000000;">
-				<!-- <div></div> -->
+			<div class="ColumnHomeRecommendation-cardContainer" style="height: 562px;width: 905px;">
+				<div class="ColumnHomeRecommendation-kapian zh-shadow" v-for="(item,index) in columnss.slice(since,check)" :key="index">
+					<img :src="item.image_url" style="width: 48px;height: 48px;border-radius: 100px;margin-top: 28px;" />
+					<div class="ColumnHomeColumnCard-info">
+						<div class="ColumnHomeColumnCard-title">{{item.title}}</div>
+						<div class="ColumnHomeColumnCard-description">{{item.description}}</div>
+					</div>
+					<div class="ColumnHomeColumnCard-meta">{{item.followers}} 人关注 | {{item.articles_count}} 篇文章</div>
+					<button type="button" class="ColumnHomeColumnCard-but">进入专栏</button>
+				</div>
 			</div>
-			<button type="button" style="width: 100px;height: 35px;border: none;border: 1px solid #000000;border-radius: 3px;">
+			<button type="button" class="ColumnHomeColumnCard-hyh" @click="limitbut()">
 				<span style="display:inline-flex;align-items:center">​
 					<svg class="Button-zi" viewBox="0 0 24 24" width="1.2em" height="1.2em">
 						<path d="M20 12.878C20 17.358 16.411 21 12 21s-8-3.643-8-8.122c0-4.044 3.032-7.51 6.954-8.038.034-1.185.012-1.049.012-1.049-.013-.728.461-1.003 1.057-.615l3.311 2.158c.598.39.596 1.026 0 1.418l-3.31 2.181c-.598.393-1.08.12-1.079-.606 0 0 .006-.606-.003-1.157-2.689.51-4.675 2.9-4.675 5.708 0 3.21 2.572 5.822 5.733 5.822 3.163 0 5.733-2.612 5.733-5.822 0-.633.51-1.148 1.134-1.148.625 0 1.133.515 1.133 1.148"></path>
@@ -42,19 +50,146 @@
 				</span>换一换
 			</button>
 		</div>
+		<div style="height: 500px;background-color: #FFFFFF;text-align: center;">
+			<div style="height: 135px;"></div>
+			<h3 class="tail">在知乎创作</h3>
+		</div>
+		
 	</div>
 </template>
 
 <script>
+	export default {
+		name: 'columns',
+		data() {
+			return {
+				columnss: [],
+				since: 0,
+				check: 8,
+				max: null
+			};
+		},
+		created() {
+			this.axios.get('http://localhost:8080/api/columns/all').then(res => {
+				console.log(res);
+				this.columnss = res.data.data;
+				this.max = parseInt(this.columnss.length)
+			});
+		},
+		methods: {
+			limitbut: function() {
+				if(this.since > this.max && this.check > this.max) {
+					this.since = 0;
+					this.check = 8;
+				}
+				this.since += 8;
+				this.check += 8;
+			}
+		}
+	}
 </script>
 
 <style lang="scss" scoped>
+	.tail {
+	    border: solid #97ffd8;
+	    border-width: 1px 0;
+	    font-size: 18px;
+	    font-weight: 300;
+	    letter-spacing: 14px;
+	    padding: 26px 0;
+	    width: 345px;
+		margin: auto;
+	}
+	
+	.ColumnHomeColumnCard-hyh {
+		width: 100px;
+		height: 35px;
+		border: 1px solid #000000;
+		border-radius: 3px;
+		text-align: center;
+		cursor: pointer;
+		background: none;
+	}
+	
+	.ColumnHomeRecommendation-kapian {
+		width: 210px;
+		height: 265px;
+		// border: 1px solid #000000;
+		text-align: center;
+		background-color: #FFFFFF;
+		border-radius: 4px;
+		margin: 0 8px 16px;
+	}
+	
+	.ColumnHomeColumnCard-but{
+		width: 90px;
+		height: 34px;
+		color: #42B983;
+		border-color: #42B983;
+		border: 1px solid;
+		border-radius: 3px;
+		text-align: center;
+		cursor: pointer;
+		background: none;
+		margin-top: 15px;
+	}
+	
+	.ColumnHomeColumnCard-meta {
+	    color: grey;
+	    font-size: 14px;
+	    margin-top: 14px;
+	}
+	
+	.ColumnHomeColumnCard-info {
+	    -webkit-box-align: center;
+	    -ms-flex-align: center;
+	    align-items: center;
+	    display: -webkit-box;
+	    display: -ms-flexbox;
+	    display: flex;
+	    -webkit-box-orient: vertical;
+	    -webkit-box-direction: normal;
+	    -ms-flex-direction: column;
+	    flex-direction: column;
+	    -webkit-box-flex: 1;
+	    -ms-flex-positive: 1;
+	    flex-grow: 1;
+	    padding: 0 16px;
+	}
+	
+	.ColumnHomeColumnCard-title {
+	    margin-top: 16px;
+	    display: -webkit-box;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    -webkit-line-clamp: 1;
+	    -webkit-box-orient: vertical;
+	    font-weight: 600;
+	    font-synthesis: style;
+	}
+	
+	.ColumnHomeColumnCard-description {
+	    color: grey;
+	    font-size: 14px;
+	    line-height: 21px;
+	    margin-top: 7px;
+	    text-align: center;
+	    word-break: break-all;
+	    display: -webkit-box;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	    -webkit-line-clamp: 2;
+	    -webkit-box-orient: vertical;
+	}
+	
 	.ColumnHomeRecommendation-cardContainer {
 	    display: -webkit-box;
 	    display: -ms-flexbox;
 	    display: flex;
 	    -ms-flex-wrap: wrap;
 	    flex-wrap: wrap;
+		height: 562px;
+		width: 905px;
 	}
 	.ColumnHomeRecommendation {
 		-webkit-box-align: center;
@@ -67,8 +202,9 @@
 		-webkit-box-direction: normal;
 		-ms-flex-direction: column;
 		flex-direction: column;
-		margin: 48px auto 0;
-		width: 888px;
+		// margin: 48px auto 0;
+		width: auto;
+		background-color: #FFFFFF;
 	}
 
 	.ColumnHomeTitle {
@@ -92,6 +228,7 @@
 		margin: 0 16px;
 		font-weight: 600;
 		font-synthesis: style;
+		margin-top: 48px;
 	}
 
 	.ColumnHomeTitle-line {
