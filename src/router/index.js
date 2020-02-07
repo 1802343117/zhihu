@@ -34,16 +34,16 @@ const routes = [
 			{
 				path:'recommoned',
 				component:() => import('../views/Recommoned.vue')
-			},
-			{
-				path:'follow',
-				component:() => import('../views/Follow.vue')
-			},
-			{
-				path:'hot',
-				component:() => import('../views/Hot.vue')
 			}
 		]
+	},
+	{
+		path:'follow',
+		component:() => import('../views/Follow.vue')
+	},
+	{
+		path:'hot',
+		component:() => import('../views/Hot.vue')
 	},
 	{
 		path:'explore',  

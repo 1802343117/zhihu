@@ -166,6 +166,11 @@
 				</div>
 			</div>
 		</div>
+		<button class="goto-top" @click="backToTop" v-show="btnFlag">
+			<svg title="回到顶部" viewBox="0 0 24 24" width="24" height="24" style="fill: grey;">
+				<path d="M16.036 19.59a1 1 0 0 1-.997.995H9.032a.996.996 0 0 1-.997-.996v-7.005H5.03c-1.1 0-1.36-.633-.578-1.416L11.33 4.29a1.003 1.003 0 0 1 1.412 0l6.878 6.88c.782.78.523 1.415-.58 1.415h-3.004v7.005z"></path>
+			</svg>
+		</button>
 	</div>
 </template>
 
@@ -177,7 +182,8 @@
 				specials: [],
 				roundTables: [],
 				favorites: [],
-				columnss: []
+				columnss: [],
+				btnFlag: false
 			};
 		},
 		created() {
@@ -197,6 +203,32 @@
 				console.log(res);
 				this.columnss = res.data.data;
 			});
+		},
+		mounted() {
+			// window对象，所有浏览器都支持window对象。它表示浏览器窗口，监听滚动事件
+			window.addEventListener('scroll', this.scrollToTop);
+		},
+		methods: {
+			backToTop() {
+				//加定时器，平滑过渡回到顶部
+				let timer = setInterval(() => {
+					let ispeed = Math.floor(-this.scrollTop / 5);
+					document.documentElement.scrollTop = document.body.scrollTop = this.scrollTop + ispeed;
+					if (this.scrollTop === 0) {
+						clearInterval(timer);
+					}
+				}, 16);
+			},
+			// 计算距离顶部的高度，当高度大于300显示回顶部图标，小于300则隐藏
+			scrollToTop() {
+				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+				this.scrollTop = scrollTop;
+				if (this.scrollTop > 3) {
+					this.btnFlag = true;
+				} else {
+					this.btnFlag = false;
+				}
+			}
 		}
 	};
 </script>

@@ -1,0 +1,67 @@
+/*卡片样式*/
+.tjkp {
+	width: 694px;
+	border-bottom: 1px solid #dfdfdf;
+	padding: 22px 22px 22px 22px;
+	background-color: #FFFFFF;
+}
+
+.h2bt {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.6;
+	color: #1a1a1a;
+	margin-top: -4px;
+	margin-bottom: -4px;
+	cursor: pointer;
+}
+
+.h2bt_xf {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.6;
+	color: #175199;
+	margin-top: -4px;
+	margin-bottom: -4px;
+	cursor: pointer;
+}
+
+.kpnr {
+	width: 654px;
+	// height: 98px;
+	line-height: 1.67;
+	display: none;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.fjnr {
+	margin-top: 15px;
+}
+
+.wznr {
+	margin-top: 15px;
+	// margin-left: 18px;
+	// border: 1px solid #000000;
+}
+
+.wznr_xf {
+	margin-top: 15px;
+	color: #8590A6;
+	cursor: pointer;
+}
+
+.read-more {
+	position: relative;
+	cursor: pointer;
+
+	.deep-blue-icon {
+		position: absolute;
+		bottom: -2px;
+		fill: #0084FF;
+	}
+
+	.deep-blue {
+		color: #0084FF;
+	}
+}
